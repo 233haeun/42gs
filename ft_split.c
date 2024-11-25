@@ -5,101 +5,81 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: haelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 13:52:51 by haelee            #+#    #+#             */
-/*   Updated: 2024/11/20 21:50:19 by haelee           ###   ########.fr       */
+/*   Created: 2024/11/21 19:16:33 by haelee            #+#    #+#             */
+/*   Updated: 2024/11/21 19:45:49 by haelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	issep(char c, char sep)
+char	*worddup(char const *s, size_t len)
 {
-	return (c == sep);
+	char	*sp_str;
+
+	sp_str = (char *) malloc(sizeof(char) * (len + 1));
+	if (!sp_str)
+		return (NULL);
+	ft_memcpy(sp_str, s, len);
+	sp_str[len] = '\0';
+	return (sp_str);
 }
 
-int	countwords(const char *str, char sep)
+char	**freeall(char **list)
 {
-	int	i;
-	int	count;
+	size_t	i;
 
 	i = 0;
-	count = 0;
-	while (str[i] != '\0')
+	while (list[i])
 	{
-		if (!issep(str[i], sep) && (i == 0 || issep(str[i - 1], sep)))
-			count++;
+		free(list[i]);
 		i++;
 	}
-	return (count);
+	free(list);
+	return (NULL);
 }
 
-char    *makestr(const char *str, char sep)
+size_t	wordcount(char const *s, char c)
 {
-    int     len;
-	int		i;
-    char    *new_str;
-
-    len = 0;
-	i = 0;
-    while (str[len] && !issep(str[len], sep))
-		len++;
-    new_str = ((char *)malloc((len + 1) * sizeof(char)));
-    if (new_str == 0)
-		return (0);
-    while (i < len)
-    {
-        new_str[i] = str[i];
-        i++;
-    }
-    new_str[len] = '\0';
-    return (new_str);
-}
-
-void	free_str_arr(char **str_arr, int count)
-{
-	int i;
+	size_t	listsize;
+	size_t	i;
 
 	i = 0;
-	while (i < count)
+	listsize = 0;
+	while (s[i] != '\0')
 	{
-		free(str_arr[i]);
+		if (i == 0 && s[i] != c)
+			listsize++;
+		if (s[i] == c && s[i + 1] != '\0' && s[i + 1] != c)
+			listsize++;
 		i++;
 	}
-	free(str_arr);
+	return (listsize);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**str_arr;
-	int		arr_i;
-	int		i;
-	int		word_num;
+	char	**strlist;
+	size_t	i;
+	size_t	j;
+	size_t	save;
 
-	if (!s)
-		return (NULL);
-	word_num = countwords(s, c);
-	str_arr = (char **)malloc((word_num + 1) * sizeof(char *));
-	arr_i = 0;
 	i = 0;
-	if (!str_arr)
+	j = 0;
+	strlist = (char **)malloc(sizeof(char *) * (wordcount(s, c) + 1));
+	if (!s || !strlist)
 		return (NULL);
-	while (s[i])
+	while (i < wordcount(s, c) && s[j] != '\0')
 	{
-		while (s[i] && issep(s[i], c))
-			++i;
-		if (s[i] && !issep(s[i], c))
-		{
-			str_arr[arr_i] = makestr((s + i), c);
-			if (!str_arr[arr_i])
-			{
-				free_str_arr(str_arr, arr_i);
-				return (NULL);
-			}
-			arr_i++;
-			while (s[i] && !issep(s[i], c))
-				i++;
-		}
+		while (s[j] == c)
+			j++;
+		save = j;
+		while (s[j] != c && s[j] != '\0')
+			j++;
+		strlist[i] = worddup(s + save, j - save);
+		if (strlist[i] == NULL)
+			return (freeall(strlist));
+		i++;
 	}
-	str_arr[arr_i] = (NULL);
-	return (str_arr);
+	strlist[i] = NULL;
+	return (strlist);
 }

@@ -28,6 +28,6 @@ char	*ft_strdup(const char *src)
 		tmp[i] = src[i];
 		i++;
 	}
-	tmp[i] = 0;
+	tmp[i] = '\0';
 	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: haelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 11:45:16 by haelee            #+#    #+#             */
-/*   Updated: 2024/11/20 12:27:02 by haelee           ###   ########.fr       */
+/*   Updated: 2024/11/21 18:26:25 by haelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 		}
 		s++;
 	}
-	if (!c)
+	if (*s == (char)c)
 		return ((char *)s);
 	return (re);
 }

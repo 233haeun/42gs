@@ -32,10 +32,10 @@ all : $(NAME)
 	$(CC) $(CFLAG) -c $< -o $@
 
 clean :
-	$(RM) $(RMFLAG) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean : clean
-	$(RM) $(RMFLAG) $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all
 
