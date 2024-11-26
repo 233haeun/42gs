@@ -6,7 +6,7 @@
 /*   By: haelee <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:37:03 by haelee            #+#    #+#             */
-/*   Updated: 2024/11/20 21:07:29 by haelee           ###   ########.fr       */
+/*   Updated: 2024/11/26 12:19:44 by haelee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
+# include <stdint.h>
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
@@ -28,7 +28,7 @@ int		ft_isascii(int num);
 int		ft_isdigit(int c);
 int		ft_isprint(int num);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
-int		ft_strncmp(char *s1, char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 
